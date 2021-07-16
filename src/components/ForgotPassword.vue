@@ -2,18 +2,12 @@
   <div class="ello">
     <div class="sgnform2">
       <p id="sgnIn">Sign In</p>
-      <b-form @submit.prevent="pressed">
+      <b-form @submit.prevent="forgotPassword">
          <div class=" userN input-group mb-3">
           <span class="input-group-text" id="basic-addon1"><i  class="fas fa-envelope"></i></span>
-          <input type="email"  v-model="email"  class="form-control type" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1">
+          <input type="email"  v-model="user.email"  class="form-control type" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1">
         </div>
-        <div class=" userN input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i  class="fas fa-key"></i></span>
-          <input type="password" v-model="password"  class="form-control type" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-        </div>
-        <router-link to="/dashboard"><b-button id="btn" v-on:click="login" type="submit">Log In<i v-if="loggedIn" class="fas fa-circle-notch fa-spin"></i></b-button></router-link><br>
-        <p><a href="#">Forgotten password?</a></p>
-        <p>I don't have an account?<router-link to="/signup"> create account </router-link></p><br>
+        <b-button id="btn" type="submit">Reset password<i v-if="loggedIn" class="fas fa-circle-notch fa-spin"></i></b-button><br>
       </b-form>
     </div>
   </div>
@@ -26,26 +20,28 @@ export default {
   name: 'ello',
   data () {
     return {
-      email: '',
-      password: '',
-      error: '',
-      loggedIn: false
+      user: {
+        email: '',
+        loggedIn: false
+      }
     }
   },
   methods: {
-    login: function (e) {
-      this.loggedIn = true
-      console.log(this.email, 'email')
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then(user => {
-          alert(`You are Logged in as ${user.user.email}`)
-          this.$router.push('/dashboard')
-          this.loggedIn = false
+    forgotPassword () {
+      this.user.loggedIn = true
+      console.log(this.user.email, 'email')
+      firebase.auth().sendPasswordResetEmail(this.user.email)
+        .then(() => {
+          alert('check your mailbox')
+          //   this.$router.push('/dashboard')
+          this.user = {
+            email: ''
+          }
+          this.user.loggedIn = false
         }, err => {
           alert(err.message)
-          this.loggedIn = false
+          this.user.loggedIn = false
         })
-      e.preventDefault()
     }
   }
 }

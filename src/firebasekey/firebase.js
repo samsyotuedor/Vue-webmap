@@ -4,6 +4,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 // Your web app's Firebase configuration
 const firebaseConfig = {
+  apiKey: 'AIzaSyDVFfLQoAVa1DfNvKWvQIAdwqgOuVNxgLo',
   authDomain: 'webmap-18f07.firebaseapp.com',
   databaseURL: 'https://webmap-18f07.firebaseio.com',
   projectId: 'webmap-18f07',
@@ -15,5 +16,6 @@ const firebaseConfig = {
 export default () => {
   firebase.initializeApp(firebaseConfig)
   firebase.analytics()
+  firebase.firestore()
 }
 // let database = firebase.database();

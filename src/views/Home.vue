@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <Navbar/>
     <div class="hmn">
       <div class="learn">
         <p id="wel"> WELCOME</p>
@@ -8,12 +9,19 @@
         <button type="button" class="btn btn-primary btn-lg">Get started free</button>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/navbar.vue'
+import Footer from '@/components/footer.vue'
 export default {
-  name: 'hello'
+  name: 'hello',
+  components: {
+    Navbar,
+    Footer
+  }
 }
 </script>
 

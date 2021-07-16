@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <Navbar/>
-      <router-view/>
-    <Footer/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase'
-import Navbar from '@/components/navbar.vue'
-import Footer from '@/components/footer.vue'
 export default {
   name: 'app',
-  components: {
-    Navbar,
-    Footer
-  },
   created () {
     console.log(firebase.database())
     firebase.auth().createUserWithEmailAndPassword('email@gmail.com', 'password')
